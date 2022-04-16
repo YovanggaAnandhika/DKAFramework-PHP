@@ -11,43 +11,12 @@ class ComposerStaticInite06db876f556e623e2d17fe44ee91558
         array (
             'yovanggaanandhika\\dkaframework\\' => 31,
         ),
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-            'Psr\\Cache\\' => 10,
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Deprecations\\' => 22,
-            'Doctrine\\DBAL\\' => 14,
-            'Doctrine\\Common\\' => 16,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'yovanggaanandhika\\dkaframework\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/src',
-        ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
-        'Doctrine\\Deprecations\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
-        ),
-        'Doctrine\\DBAL\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/dbal/src',
-        ),
-        'Doctrine\\Common\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
         ),
     );
 
