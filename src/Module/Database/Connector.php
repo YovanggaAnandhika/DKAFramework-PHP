@@ -1,15 +1,15 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module;
+namespace yovanggaanandhika\dkaframework\Module\Database;
 
-use yovanggaanandhika\dkaframework\Interface\Database as Interfaces;
 use PDO;
+use yovanggaanandhika\dkaframework\Interface\Database\Connector as Interfaces;
 
-class Database extends PDO implements Interfaces {
+class Connector extends PDO implements Interfaces {
 
     public static function MariaDB($configuration, $database = "test", $pdo_default_fetchmode = PDO::FETCH_ASSOC, $error_mode = PDO::ERRMODE_SILENT) : PDO{
         /** ==============================
-         * Mapping variable $Database :
+         * Mapping variable $Connector :
          * ---------------------------- */
 
         $db_user = $configuration['user'];
