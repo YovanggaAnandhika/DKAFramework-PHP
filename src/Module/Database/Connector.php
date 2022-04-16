@@ -7,6 +7,13 @@ use yovanggaanandhika\dkaframework\Interface\Database\Connector as Interfaces;
 
 class Connector extends PDO implements Interfaces {
 
+    /**
+     * @param $configuration array configuration array connection
+     * @param $database string name of Database
+     * @param $pdo_default_fetchmode int the fecth mode options
+     * @param $error_mode int error mode options
+     * @return PDO
+     */
     public static function MariaDB($configuration, $database = "test", $pdo_default_fetchmode = PDO::FETCH_ASSOC, $error_mode = PDO::ERRMODE_SILENT) : PDO{
         /** ==============================
          * Mapping variable $Connector :
