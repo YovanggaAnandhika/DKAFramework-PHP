@@ -4,9 +4,7 @@
   "type": "library",
   "require": {
     "php": ">=8.0",
-    "ext-pdo": "*",
-    "react/http": "1.x-dev",
-    "react/socket": "1.x-dev"
+    "ext-pdo": "*"
   },
   "license": "proprietary",
   "authors": [
