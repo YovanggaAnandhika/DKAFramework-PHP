@@ -1,9 +1,9 @@
 <?php
-require ("./../../../vendor/autoload.php");
+
+namespace yovanggaanandhika\dkaframework\Module\Database;
 use yovanggaanandhika\dkaframework\Interface\Database\CRUD as CRUDInterface;
 
 class CRUD implements CRUDInterface {
-
 
     public static function Read($Connector, $table_name)
     {
