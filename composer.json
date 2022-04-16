@@ -1,0 +1,21 @@
+{
+  "name": "yovanggaanandhika/framework",
+  "description": "A Powerfull all Language framework",
+  "type": "library",
+  "require": {
+    "php": ">=8.0",
+    "doctrine/dbal": "4.0.x-dev",
+    "ext-pdo": "*"
+  },
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Yovangga Anandhika",
+      "email": "dhikaprivate@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"yovanggaanandhika\\dkaframework\\": "src/"}
+  },
+  "minimum-stability": "dev"
+}
