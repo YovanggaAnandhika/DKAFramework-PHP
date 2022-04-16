@@ -11,7 +11,7 @@ class CRUD extends PDO implements CRUDInterface {
     {
         $reformatTableName = strval($table_name);
         $statement = $Connector->prepare("SELECT * FROM ".$reformatTableName);
-        $statement->bindParam(":table_name",$reformatTableName);
+        $statement->execute();
         $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
         $json = json_encode($fetch);
 
