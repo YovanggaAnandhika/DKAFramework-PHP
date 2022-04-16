@@ -17,5 +17,5 @@
   "autoload": {
     "psr-4": {"yovanggaanandhika\\dkaframework\\": "src/"}
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "stable"
 }
