@@ -7,6 +7,8 @@ use yovanggaanandhika\dkaframework\Interface\Database\CRUD as CRUDInterface;
 
 class CRUD extends PDO implements CRUDInterface {
 
+
+
     /**
      * @param $Connector PDO
      * @param $table_name string
@@ -21,7 +23,7 @@ class CRUD extends PDO implements CRUDInterface {
         $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if ($json_format){
-            $json = json_encode($fetch);
+            $json = json_encode($fetch , true);
         }else{
             $json = $fetch;
         }
