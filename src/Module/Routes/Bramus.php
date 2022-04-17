@@ -1,7 +1,7 @@
 <?php
 
 namespace yovanggaanandhika\dkaframework\Module\Routes;
-require ('./../../../vendor/autoload.php');
+
 use Bramus\Router\Router;
 use MongoDB\BSON\Regex;
 
