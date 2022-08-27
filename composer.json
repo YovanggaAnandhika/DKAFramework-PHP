@@ -5,8 +5,7 @@
   "require": {
     "php": ">=8.0",
     "ext-pdo": "*",
-    "lodash-php/lodash-php": "dev-master",
-    "bramus/router": "~1.6"
+    "lodash-php/lodash-php": "dev-master"
   },
   "license": "proprietary",
   "authors": [

@@ -1,7 +1,6 @@
 <?php
 
 namespace yovanggaanandhika\dkaframework\Interface\Database;
-use http\QueryString;
 use PDO;
 interface CRUD {
 
