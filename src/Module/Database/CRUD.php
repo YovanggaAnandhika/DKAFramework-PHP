@@ -25,9 +25,9 @@ class CRUD extends PDO implements CRUDInterface {
      * @param $Connector PDO
      * @param $table_name string
      * @param $json_format boolean
-     * @return object
+     * @return object|array
      */
-    public static function Read($Connector, $table_name, $json_format = false): object
+    public static function Read($Connector, $table_name, $json_format = false): object|array
     {
         self::setReturnVar(array(
             'status' => false,
