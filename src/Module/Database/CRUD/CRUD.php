@@ -1,41 +1,70 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database;
+namespace yovanggaanandhika\dkaframework\Module\Database\CRUD;
 use PDO;
 use yovanggaanandhika\dkaframework\Interface\Database\CRUD as CRUDInterface;
+use yovanggaanandhika\dkaframework\Module\Database\CRUD\Read\OptionsRead as Options;
 
-class CRUD extends PDO implements CRUDInterface {
+class CRUD implements CRUDInterface {
 
     private static mixed $returnVar;
     /**
      * @return mixed
      */
-    public static function getReturnVar(): mixed
+    private function getReturnVar(): mixed
     {
         return self::$returnVar;
     }
     /**
      * @param mixed $returnVar
      */
-    public static function setReturnVar(mixed $returnVar): void
+    private function setReturnVar(mixed $returnVar): void
     {
         self::$returnVar = $returnVar;
     }
+
+    private static PDO $Connector;
+
+    private function getConnector(): PDO
+    {
+        return self::$Connector;
+    }
     /**
-     * @param $Connector PDO
-     * @param $table_name string
-     * @param $json_format boolean
-     * @return object|array
+     * @param mixed $Connector
      */
-    public static function Read($Connector, $table_name, $json_format = false): object|array
+    private function setConnector(PDO $Connector): void
+    {
+        self::$Connector = $Connector;
+    }
+
+    public function __construct(PDO $Connector)
+    {
+        $this->setConnector($Connector);
+    }
+
+    /**
+     * @param $table_name string
+     * @param Options $options
+     * @return array | string
+     */
+    public function Read($table_name = 'test', $options = new Options()) : array | string
     {
         self::setReturnVar(array(
             'status' => false,
             'code' => 500,
             'msg' => 'not initialization'
         ));
+
+        $ExtendedScript = "";
+
         $reformatTableName = strval($table_name);
-        $statement = $Connector->prepare("SELECT * FROM $reformatTableName");
+        $connector = $this->getConnector();
+        //##############################
+        $Limit = (!is_null($options::getGetLimit()) ? "LIMIT ".$options::getGetLimit() : "");
+        $ExtendedScript .= $Limit;
+        //#############################
+        $SQLScript = /** @lang text */ "SELECT * FROM `$reformatTableName` $ExtendedScript;";
+        $statement = $connector->prepare($SQLScript);
         $statement->execute();
         $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
         $errorInfo = $statement->errorInfo();
@@ -77,10 +106,8 @@ class CRUD extends PDO implements CRUDInterface {
             ));
             /** End set Response Return Variable **/
         }
-        /** Check return Format Json */
-        ($json_format) ? $json = json_encode(self::getReturnVar(), true) : $json = self::getReturnVar();
         /** Return Variable */
-        return $json;
+        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), true) : self::getReturnVar());
     }
 
 
