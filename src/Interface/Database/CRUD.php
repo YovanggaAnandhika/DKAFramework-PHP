@@ -5,8 +5,7 @@ use PDO;
 interface CRUD {
 
     /**
-     * @param $Connector PDO
      * @param $table_name String
      */
-    public static function Read($Connector, $table_name, $json_format = false);
+    public function Read($table_name, $options = array('json_format' => false));
 }
