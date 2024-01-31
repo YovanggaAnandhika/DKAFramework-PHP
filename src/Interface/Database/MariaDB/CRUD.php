@@ -1,8 +1,8 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Interface\Database;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
+namespace yovanggaanandhika\dkaframework\Interface\Database\MariaDB;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
 
 interface CRUD {
 

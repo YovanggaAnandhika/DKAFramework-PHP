@@ -1,5 +1,5 @@
 <?php
-namespace yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
+namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
 
 class Options {
 

@@ -2,9 +2,9 @@
 
 require_once("./../vendor/autoload.php");
 
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB as MariaDB;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB as MariaDB;
 
 // Run Code
     $db_config = array(

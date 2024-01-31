@@ -1,11 +1,11 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database;
+namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB;
 
 use PDO;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD as CRUD;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD as CRUD;
 
-class MariaDB{
+class MariaDB {
 
     private static PDO $Connector;
 

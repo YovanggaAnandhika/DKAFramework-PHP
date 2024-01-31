@@ -1,15 +1,13 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database\CRUD;
-use mysql_xdevapi\Statement;
+namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD;
+
 use PDO;
-use PDOException;
 use PDOStatement;
-use PDOStatement as PDOStatementAlias;
-use yovanggaanandhika\dkaframework\Interface\Database\CRUD as CRUDInterface;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create\Options;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create;
+use yovanggaanandhika\dkaframework\Interface\Database\MariaDB\CRUD as CRUDInterface;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create\Options;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
 
 class CRUD implements CRUDInterface {
 

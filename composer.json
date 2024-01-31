@@ -3,7 +3,7 @@
   "description": "A Powerfull all Language framework",
   "type": "library",
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "ext-pdo": "*",
     "lodash-php/lodash-php": "dev-master"
   },

@@ -1,5 +1,5 @@
 <?php
-namespace yovanggaanandhika\dkaframework\Module\Database\CRUD\Create;
+namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
 
 class Options {
 
