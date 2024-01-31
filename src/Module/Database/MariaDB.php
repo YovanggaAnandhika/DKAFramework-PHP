@@ -3,18 +3,31 @@
 namespace yovanggaanandhika\dkaframework\Module\Database;
 
 use PDO;
-use yovanggaanandhika\dkaframework\Interface\Database\Connector as Interfaces;
+use yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD as CRUD;
 
-class Connector extends PDO implements Interfaces {
+class MariaDB{
+
+    private static PDO $Connector;
+
+    private function getConnector(): PDO
+    {
+        return self::$Connector;
+    }
+    /**
+     * @param mixed $Connector
+     */
+    private function setConnector(PDO $Connector): void
+    {
+        self::$Connector = $Connector;
+    }
 
     /**
      * @param $configuration array configuration array connection
-     * @param $database string name of Database
      * @param $pdo_default_fetchmode int the fecth mode options
      * @param $error_mode int error mode options
-     * @return PDO
      */
-    public static function MariaDB($configuration, $pdo_default_fetchmode = PDO::FETCH_ASSOC, $error_mode = PDO::ERRMODE_SILENT) : PDO{
+    public function __construct($configuration, $pdo_default_fetchmode = PDO::FETCH_ASSOC, $error_mode = PDO::ERRMODE_SILENT)
+    {
         /** ==============================
          * Mapping variable $Connector :
          * ---------------------------- */
@@ -36,7 +49,15 @@ class Connector extends PDO implements Interfaces {
         /** ==============
          * Return Data :
          * ------------- */
-        return new PDO($dsn, $db_user,$db_pass, $options);
+        $pdo = new PDO($dsn, $db_user,$db_pass, $options);
+        $this->setConnector($pdo);
+    }
+
+    /**
+     * @return \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD
+     */
+    public function CRUD() : \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD {
+        return new \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD($this->getConnector());
     }
 
 }
