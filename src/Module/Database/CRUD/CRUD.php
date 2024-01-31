@@ -1,8 +1,13 @@
 <?php
 
 namespace yovanggaanandhika\dkaframework\Module\Database\CRUD;
+use mysql_xdevapi\Statement;
 use PDO;
+use PDOException;
+use PDOStatement;
+use PDOStatement as PDOStatementAlias;
 use yovanggaanandhika\dkaframework\Interface\Database\CRUD as CRUDInterface;
+use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create\Options;
 use yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
 use yovanggaanandhika\dkaframework\Module\Database\CRUD\Create;
 
@@ -45,71 +50,78 @@ class CRUD implements CRUDInterface {
 
     /** **
      * @param string $table_name
+     * @param Options $options
+     * @return array|string
      */
     public function Create(string $table_name, Create\Options $options) : array | string {
+        /**
+         * @var array $column
+         * @var array $columnParams
+         * Column Table Insert Declare
+         */
         $column = [];
-        $data = [];
+        $columnParams = [];
+        /**
+         * Default Callback
+         */
         self::setReturnVar(array(
             'status' => false,
             'code' => 500,
             'msg' => 'not initialization'
         ));
-        $reformatTableName = strval($table_name);
+        /**
+         * get Connector DB Maria
+         */
         $connector = $this->getConnector();
-
+        /**
+         * @var array $columnField
+         * Looping Column data and params
+         */
         foreach (array_keys($options::getDataList()) as $columnField){
-            $column[] = "`" . "$columnField" . "`";
+            $column[] = "`$columnField`";
+            $columnParams[] = ":$columnField";
         }
-        foreach ($options::getDataList() as $item){
-            $data[] = (gettype($item) === "string" ? '"'.$item.'"' : $item);
-        }
+        /**
+         * @var string $columnToString
+         * @var string $params
+         * Convert array to String with comma (,);
+         */
         $columnToString = implode(",",$column);
-        $dataToString = implode(",",$data);
-        $SQLScript = /** @lang text */ "INSERT INTO `$reformatTableName` ($columnToString) VALUE ($dataToString);";
+        $params = implode(",",$columnParams);
+        /** @lang $SQLScript */
+        $SQLScript = /** @lang text */ "INSERT INTO `$table_name` ($columnToString) VALUES ($params);";
+        /** * @var PDOStatement $statment
+         * Prepare Connector For SQLScript
+         */
         $statement = $connector->prepare($SQLScript);
-        $statement->execute();
-        $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $errorInfo = $statement->errorInfo();
-        $errorCode = $statement->errorCode();
-        $rowCount = $statement->rowCount();
-        if (is_null($errorInfo[1])){
-            if ($rowCount > 0){
-                /** set Response Return Variable **/
-                self::setReturnVar(array(
-                    'status' => true,
-                    'code' => 200,
-                    'msg' => 'successfully to read data',
-                    "data" => $fetch
-                ));
-                /** End set Response Return Variable **/
-            }else{
-                /** set Response Return Variable **/
-                self::setReturnVar(array(
-                    'status' => false,
-                    'code' => 400,
-                    'msg' => 'failed to insert data',
-                    "error" => array(
-                        "code" => $errorCode,
-                        'msg' => $errorInfo[2]
-                    )
-                ));
-                /** End set Response Return Variable **/
-            }
-        }else{
-            /** set Response Return Variable **/
+        /** @var array $columnFieldParams
+         * Prevent for SQL Injection and Inject array To SQLScript with bind params
+         */
+        foreach (array_keys($options::getDataList()) as $columnFieldParams){
+            $statement->bindParam(":$columnFieldParams",$options::getDataList()[$columnFieldParams],PDO::PARAM_STR);
+        }
+        /*** Execute script */
+        $execute = $statement->execute();
+        /*** Checking If Execute Successfully */
+        if ($execute){
             self::setReturnVar(array(
-                'status' => false,
-                'code' => 500,
-                'msg' => 'fatal, error detected',
-                "error" => array(
-                    "code" => $errorInfo[1],
-                    'msg' => $errorInfo[2]
+                'status' => true,
+                'code' => 200,
+                'msg' => 'successfully to insert data',
+                'data' => $options::getDataList(),
+                'metadata' => array(
+                    'SQLRaw' => $statement->queryString
                 )
             ));
-            /** End set Response Return Variable **/
+        }else{
+            self::setReturnVar(array(
+                'status' => false,
+                'code' => 404,
+                'msg' => 'failed to insert data'
+            ));
         }
         /** Return Variable */
-        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), true) : self::getReturnVar());
+        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), JSON_PRETTY_PRINT) : self::getReturnVar());
     }
     /**
      * @fun Read

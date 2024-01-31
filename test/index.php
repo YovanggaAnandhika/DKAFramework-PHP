@@ -17,17 +17,17 @@ use yovanggaanandhika\dkaframework\Module\Database\MariaDB as MariaDB;
     $CRUD = $MariaDB->CRUD();
 
     $Options = new Create\Options();
-    $Options->jsonFormat(false);
+    $Options->jsonFormat(true);
     $Options->setData([
-        "id_siswa" => 1,
         "nama_siswa" => "DHika"
     ]);
     $Create = $CRUD->Create("siswa", $Options);
     //###############
-    //$Options = new Read\Options();
-    //$Read = $CRUD->Read("mti-bigdata-data-lokasi_provinsi", $Options->limit(1)->jsonFormat(true));
+    $Options = new Read\Options();
+    $Read = $CRUD->Read("siswa", $Options->limit(1)->jsonFormat(true));
     //##############
-    print_r($Create);
+    header('Content-Type: application/json');
+    echo $Read;
 
 
 

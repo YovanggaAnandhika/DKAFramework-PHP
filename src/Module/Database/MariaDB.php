@@ -26,7 +26,7 @@ class MariaDB{
      * @param $pdo_default_fetchmode int the fetch mode options
      * @param $error_mode int error mode options
      */
-    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_SILENT)
+    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_WARNING )
     {
         /** ==============================
          * Mapping variable $Connector :
