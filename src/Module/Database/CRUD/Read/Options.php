@@ -1,7 +1,7 @@
 <?php
 namespace yovanggaanandhika\dkaframework\Module\Database\CRUD\Read;
 
-class OptionsRead {
+class Options {
 
     private static int | null $getLimit = null;
     private static bool $getJsonFormat = false;
@@ -39,7 +39,7 @@ class OptionsRead {
     }
 
 
-    public function limit(int $limit) : OptionsRead {
+    public function limit(int $limit) : Options {
         self::setGetLimit($limit);
         return $this;
     }

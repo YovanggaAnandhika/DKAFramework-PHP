@@ -23,10 +23,10 @@ class MariaDB{
 
     /**
      * @param $configuration array configuration array connection
-     * @param $pdo_default_fetchmode int the fecth mode options
+     * @param $pdo_default_fetchmode int the fetch mode options
      * @param $error_mode int error mode options
      */
-    public function __construct($configuration, $pdo_default_fetchmode = PDO::FETCH_ASSOC, $error_mode = PDO::ERRMODE_SILENT)
+    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_SILENT)
     {
         /** ==============================
          * Mapping variable $Connector :
@@ -56,8 +56,8 @@ class MariaDB{
     /**
      * @return \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD
      */
-    public function CRUD() : \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD {
-        return new \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD($this->getConnector());
+    public function CRUD() : CRUD {
+        return new CRUD($this->getConnector());
     }
 
 }
