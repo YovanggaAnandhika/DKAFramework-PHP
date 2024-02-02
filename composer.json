@@ -1,6 +1,6 @@
 {
   "name": "dkaframework/php",
-  "description": "A Powerfull all Language framework",
+  "description": "DKA PHP Framework - Easy Use Coding.",
   "type": "library",
   "require": {
     "php": ">=8.2",
