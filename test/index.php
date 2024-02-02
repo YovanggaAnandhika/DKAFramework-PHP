@@ -3,7 +3,8 @@
 require_once "./../vendor/autoload.php";
 
 use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Delete;
 
 // Run Code
     $db_config = array(
@@ -15,15 +16,13 @@ use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
     $MariaDB = new MariaDB($db_config);
     $CRUD = $MariaDB->CRUD();
     //###############
-    $Options = new Update\Options();
-    $Options->setData(array(
-        "nama_siswa" => "Dhika"
-    ))->addSearch(array(
-        "id_siswa" => 1,
-        "AND",
-        "nama_siswa" => "Dhika"
-    ))->jsonFormat(true);
-    $Read = $CRUD->Update("siswa", $Options);
+    $Options = new Delete\Options();
+    $Options
+        ->jsonFormat(true)
+        ->addSearch(array(
+            "id_siswa" => 2
+        ));
+    $Read = $CRUD->Delete("siswa", $Options);
     //##############
     header('Content-Type: application/json');
     echo $Read;

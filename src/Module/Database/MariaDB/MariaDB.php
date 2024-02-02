@@ -26,16 +26,16 @@ class MariaDB {
      * @param $pdo_default_fetchmode int the fetch mode options
      * @param $error_mode int error mode options
      */
-    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_EXCEPTION )
+    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_EXCEPTION)
     {
         /** ==============================
          * Mapping variable $Connector :
          * ---------------------------- */
-
         $db_user = $configuration['user'];
         $db_pass = $configuration['password'];
         $db_host = $configuration['host'];
         $db_name = $configuration['database'];
+
         $options = [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
             PDO::ATTR_ERRMODE            => $error_mode, //turn on errors in the form of exceptions

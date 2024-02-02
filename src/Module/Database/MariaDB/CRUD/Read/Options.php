@@ -5,6 +5,25 @@ class Options {
 
     private static int | null $getLimit = null;
     private static bool $getJsonFormat = false;
+    private static array $dataSearch = [];
+
+
+    /**
+     * @return array
+     */
+    public static function getDataSearch(): array
+    {
+        return self::$dataSearch;
+    }
+
+    /**
+     * @param array $item
+     * @return void
+     */
+    public static function addDataSearch(array $item): void
+    {
+        self::$dataSearch = $item;
+    }
 
     /**
      * @return int | null
@@ -46,6 +65,11 @@ class Options {
 
     public function jsonFormat(bool $jsonFormat){
         self::setJsonFormat($jsonFormat);
+        return $this;
+    }
+
+    public function addSearch(array $dataSearch) : Options {
+        self::addDataSearch($dataSearch);
         return $this;
     }
 
