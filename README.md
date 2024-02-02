@@ -51,7 +51,7 @@ good one.
 
 ## step 3 - Example Code : 
 
-```injectablephp
+```php
    <?php
    
    require_once "./../vendor/autoload.php";
