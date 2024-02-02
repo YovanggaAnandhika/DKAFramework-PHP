@@ -1,9 +1,9 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Interface\Database\MariaDB;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
+namespace dkaframework\core\Interface\Database\MariaDB;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Create;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Read;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Update;
 
 interface CRUD {
 

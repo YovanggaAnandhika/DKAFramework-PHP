@@ -1,14 +1,14 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD;
+namespace dkaframework\core\Module\Database\MariaDB\CRUD;
 
 use PDO;
 use PDOException;
 use PDOStatement;
-use yovanggaanandhika\dkaframework\Interface\Database\MariaDB\CRUD as CRUDInterface;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
+use dkaframework\core\Interface\Database\MariaDB\CRUD as CRUDInterface;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Create;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Read;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Update;
 use function _\get;
 
 class CRUD implements CRUDInterface {

@@ -1,9 +1,9 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB;
+namespace dkaframework\core\Module\Database\MariaDB;
 
 use PDO;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\CRUD;
+use dkaframework\core\Module\Database\MariaDB\CRUD\CRUD;
 
 class MariaDB {
 

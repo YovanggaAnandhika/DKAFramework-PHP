@@ -2,9 +2,9 @@
 
 require_once "./../vendor/autoload.php";
 
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Delete;
+use dkaframework\core\Module\Database\MariaDB\MariaDB;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Read;
+use dkaframework\core\Module\Database\MariaDB\CRUD\Delete;
 
 // Run Code
     $db_config = array(

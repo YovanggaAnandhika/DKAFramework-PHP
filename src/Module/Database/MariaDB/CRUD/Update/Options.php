@@ -1,6 +1,6 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
+namespace dkaframework\core\Module\Database\MariaDB\CRUD\Update;
 
 class Options {
 

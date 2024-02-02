@@ -1,6 +1,6 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Test;
+namespace dkaframework\core\Test;
 
 class test {
 

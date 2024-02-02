@@ -1,6 +1,6 @@
 <?php
 
-namespace yovanggaanandhika\dkaframework\Interface\Database\MariaDB;
+namespace dkaframework\core\Interface\Database\MariaDB;
 
 use PDO;
 

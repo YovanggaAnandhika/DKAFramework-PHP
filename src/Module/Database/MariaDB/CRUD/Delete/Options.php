@@ -1,5 +1,5 @@
 <?php
-namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Delete;
+namespace dkaframework\core\Module\Database\MariaDB\CRUD\Delete;
 
 class Options
 {
