@@ -6,8 +6,9 @@ use PDO;
 use PDOStatement;
 use yovanggaanandhika\dkaframework\Interface\Database\MariaDB\CRUD as CRUDInterface;
 use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create\Options;
 use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
+use function _\get;
 
 class CRUD implements CRUDInterface {
 
@@ -129,21 +130,29 @@ class CRUD implements CRUDInterface {
      */
     public function Read(string $table_name, Read\Options $options = new Read\Options()) : array | string
     {
+        /**
+         * @var string $ExtendedScript
+         */
+        $ExtendedScript = "";
+        /**
+         * Default Callback
+         */
         self::setReturnVar(array(
             'status' => false,
             'code' => 500,
             'msg' => 'not initialization'
         ));
-
-        $ExtendedScript = "";
-
-        $reformatTableName = strval($table_name);
+        /**
+         * get Connector DB Maria
+         */
         $connector = $this->getConnector();
+
         //##############################
-        $Limit = (!is_null($options::getGetLimit()) ? "LIMIT ".$options::getGetLimit() : "");
+        $Limit = (!is_null($options::getGetLimit()) ? " LIMIT ".$options::getGetLimit() : "");
         $ExtendedScript .= $Limit;
         //#############################
-        $SQLScript = /** @lang text */ "SELECT * FROM `$reformatTableName` $ExtendedScript;";
+
+        $SQLScript = /** @lang text */ "SELECT * FROM `$table_name`$ExtendedScript;";
         $statement = $connector->prepare($SQLScript);
         $statement->execute();
         $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -157,7 +166,11 @@ class CRUD implements CRUDInterface {
                     'status' => true,
                     'code' => 200,
                     'msg' => 'successfully to read data',
-                    "data" => $fetch
+                    "data" => $fetch,
+                    "metadata" => array(
+                        "SQLRaw" => $statement->queryString,
+                        "size" => $rowCount
+                    )
                 ));
                 /** End set Response Return Variable **/
             }else{
@@ -187,8 +200,94 @@ class CRUD implements CRUDInterface {
             /** End set Response Return Variable **/
         }
         /** Return Variable */
-        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), true) : self::getReturnVar());
+        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), JSON_PRETTY_PRINT) : self::getReturnVar());
     }
 
+    public function Update(string $table_name, Update\Options $options): string | array
+    {
+        /**
+         * @var array $column
+         * @var string $ExtendedScript
+         * Column Table Insert Declare
+         */
+        $column = [];
+        $search = [];
+        $ExtendedScript = "";
+        /**
+         * Default Callback
+         */
+        self::setReturnVar(array(
+            'status' => false,
+            'code' => 500,
+            'msg' => 'not initialization'
+        ));
+        /**
+         * get Connector DB Maria
+         */
+        $connector = $this->getConnector();
+
+        foreach (array_keys($options::getDataList()) as $columnField){
+            $column[] = "`$columnField`=:k$columnField";
+        }
+
+        $columnToString = implode(",",$column);
+
+        $dataSearchArray = $options::getDataSearch();
+        foreach (array_keys($options::getDataSearch()) as $SearchItem){
+            if (gettype($SearchItem) !== "integer"){
+                $CheckType = (gettype($dataSearchArray[$SearchItem]) === "integer") ? $dataSearchArray[$SearchItem] : "'".$dataSearchArray[$SearchItem]."'";
+                $search[] = "$SearchItem=$CheckType";
+            }else{
+                $search[] = $dataSearchArray[$SearchItem];
+            }
+        }
+
+        if (count($search) > 0){
+            $SearchToString = implode(" ", $search);
+            $ExtendedScript .= " WHERE $SearchToString";
+        }
+
+        /** @lang $SQLScript */
+        $SQLScript = /** @lang text */ "UPDATE `$table_name` SET $columnToString$ExtendedScript;";
+
+        //print_r($SQLScript);
+        /** * @var PDOStatement $statment
+         * Prepare Connector For SQLScript
+         */
+
+        $statement = $connector->prepare($SQLScript);
+        /** @var array $columnFieldParams
+         * Prevent for SQL Injection and Inject array To SQLScript with bind params
+         */
+        foreach (array_keys($options::getDataList()) as $columnFieldParams){
+            $statement->bindParam(":k$columnFieldParams",$options::getDataList()[$columnFieldParams]);
+        }
+
+        /*** Execute script */
+        $execute = $statement->execute();
+        /*** Checking If Execute Successfully */
+        if ($execute){
+            self::setReturnVar(array(
+                'status' => true,
+                'code' => 200,
+                'msg' => 'successfully to update Data',
+                'data' => $options::getDataList(),
+                'metadata' => array(
+                    'SQLRaw' => $statement->queryString
+                )
+            ));
+        }else{
+            self::setReturnVar(array(
+                'status' => false,
+                'code' => 404,
+                'msg' => 'failed to update Data',
+                'metadata' => array(
+                    'SQLRaw' => $statement->queryString
+                )
+            ));
+        }
+        /** Return Variable */
+        return ($options::isJsonFormat() ? json_encode(self::getReturnVar(), JSON_PRETTY_PRINT) : self::getReturnVar());
+    }
 
 }

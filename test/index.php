@@ -1,10 +1,9 @@
 <?php
 
-require_once("./../vendor/autoload.php");
+require_once "./../vendor/autoload.php";
 
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Create;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB as MariaDB;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Update;
 
 // Run Code
     $db_config = array(
@@ -15,16 +14,16 @@ use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB as MariaDB;
     );
     $MariaDB = new MariaDB($db_config);
     $CRUD = $MariaDB->CRUD();
-
-    $Options = new Create\Options();
-    $Options->jsonFormat(true);
-    $Options->setData([
-        "nama_siswa" => "DHika"
-    ]);
-    $Create = $CRUD->Create("siswa", $Options);
     //###############
-    $Options = new Read\Options();
-    $Read = $CRUD->Read("siswa", $Options->limit(1)->jsonFormat(true));
+    $Options = new Update\Options();
+    $Options->setData(array(
+        "nama_siswa" => "Dhika"
+    ))->addSearch(array(
+        "id_siswa" => 1,
+        "AND",
+        "nama_siswa" => "Dhika"
+    ))->jsonFormat(true);
+    $Read = $CRUD->Update("siswa", $Options);
     //##############
     header('Content-Type: application/json');
     echo $Read;

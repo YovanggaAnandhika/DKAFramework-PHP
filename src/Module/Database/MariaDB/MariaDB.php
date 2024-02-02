@@ -3,7 +3,7 @@
 namespace yovanggaanandhika\dkaframework\Module\Database\MariaDB;
 
 use PDO;
-use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD as CRUD;
+use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\CRUD;
 
 class MariaDB {
 
@@ -26,7 +26,7 @@ class MariaDB {
      * @param $pdo_default_fetchmode int the fetch mode options
      * @param $error_mode int error mode options
      */
-    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_WARNING )
+    public function __construct(array $configuration, int $pdo_default_fetchmode = PDO::FETCH_ASSOC, int $error_mode = PDO::ERRMODE_EXCEPTION )
     {
         /** ==============================
          * Mapping variable $Connector :
@@ -54,7 +54,7 @@ class MariaDB {
     }
 
     /**
-     * @return \yovanggaanandhika\dkaframework\Module\Database\CRUD\CRUD
+     * @return CRUD CRUD
      */
     public function CRUD() : CRUD {
         return new CRUD($this->getConnector());
