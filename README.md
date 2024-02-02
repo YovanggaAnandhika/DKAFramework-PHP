@@ -29,10 +29,6 @@ good one.
 
 ## Installing DKA PHP Framework Module
 
-### Simple Installation
-
- with composer
-
 ## step 1 - Installing Composer : 
 
 ### In Linux
