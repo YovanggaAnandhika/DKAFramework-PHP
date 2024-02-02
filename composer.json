@@ -1,5 +1,5 @@
 {
-  "name": "dkaframework/php",
+  "name": "dkaframework/core",
   "description": "DKA PHP Framework - Easy Use Coding.",
   "type": "library",
   "require": {
