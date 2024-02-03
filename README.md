@@ -57,10 +57,10 @@ good one.
    require_once "./../vendor/autoload.php";
 
    //add namespace of modules
-   use yovanggaanandhika\dkaframework\Module\Database\MariaDB\MariaDB;
-   use \yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD;
-   use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Read;
-   use yovanggaanandhika\dkaframework\Module\Database\MariaDB\CRUD\Delete;
+   use dkaframework\core\Module\Database\MariaDB\MariaDB;
+   use dkaframework\core\Module\Database\MariaDB\CRUD;
+   use dkaframework\core\Module\Database\MariaDB\CRUD\Read;
+   use dkaframework\core\Module\Database\MariaDB\CRUD\Delete;
 
     /** @var array $db_config DB Configuration to Access Database */
     $db_config = array(
